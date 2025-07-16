@@ -55,7 +55,8 @@ export async function createRouter({
   });
 
   router.get('/todos', async (_req, res) => {
-    res.json(await todoListService.listTodos());
+    res.json([{ title: 'hello' }, { title: 'world' }]);
+    // res.json(await todoListService.listTodos());
   });
 
   router.get('/todos/:id', async (req, res) => {

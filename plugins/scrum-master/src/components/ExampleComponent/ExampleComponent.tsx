@@ -24,6 +24,7 @@ import {
   SupportButton,
 } from '@backstage/core-components';
 import { ExampleFetchComponent } from '../ExampleFetchComponent';
+import { TodosFetchComponent } from '../TodosFetchComponent';
 
 export const ExampleComponent = () => (
   <Page themeId="tool">
@@ -42,6 +43,9 @@ export const ExampleComponent = () => (
               All content should be wrapped in a card like this.
             </Typography>
           </InfoCard>
+        </Grid>
+        <Grid item>
+          <TodosFetchComponent />
         </Grid>
         <Grid item>
           <ExampleFetchComponent />
