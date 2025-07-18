@@ -85,6 +85,7 @@ import {
 } from '@backstage/plugin-notifications';
 import { CustomizableHomePage } from './components/home/CustomizableHomePage';
 import { HomePage } from './components/home/HomePage';
+import { ScrumMasterPage } from '@backstage/plugin-scrum-master';
 
 const app = createApp({
   apis,
@@ -232,6 +233,7 @@ const routes = (
       {customDevToolsPage}
     </Route>
     <Route path="/notifications" element={<NotificationsPage />} />
+    <Route path="/scrum-master" element={<ScrumMasterPage />} />
   </FlatRoutes>
 );
 

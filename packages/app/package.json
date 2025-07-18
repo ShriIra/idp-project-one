@@ -62,6 +62,7 @@
     "@backstage/plugin-permission-react": "workspace:^",
     "@backstage/plugin-scaffolder": "workspace:^",
     "@backstage/plugin-scaffolder-react": "workspace:^",
+    "@backstage/plugin-scrum-master": "workspace:^",
     "@backstage/plugin-search": "workspace:^",
     "@backstage/plugin-search-common": "workspace:^",
     "@backstage/plugin-search-react": "workspace:^",
