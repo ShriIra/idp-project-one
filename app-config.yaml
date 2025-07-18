@@ -55,10 +55,14 @@ backend:
     # connection: ':memory:'
     client: pg
     connection:
-      host: ${POSTGRES_HOST}
-      port: ${POSTGRES_PORT}
-      user: ${POSTGRES_USER}
-      password: ${POSTGRES_PASSWORD}
+      # host: ${POSTGRES_HOST}
+      host: 127.0.0.1
+      # port: ${POSTGRES_PORT}
+      port: 5432
+      # user: ${POSTGRES_USER}
+      user: postgres
+      # password: ${POSTGRES_PASSWORD}
+      password: shriira
   cors:
     origin: http://localhost:3000
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
