@@ -51,8 +51,19 @@ backend:
   listen:
     port: 7007
   database:
-    client: better-sqlite3
-    connection: ':memory:'
+    # client: better-sqlite3
+    # connection: ':memory:'
+    client: pg
+    connection:
+      # host: ${POSTGRES_HOST}
+      host: 127.0.0.1
+      # port: ${POSTGRES_PORT}
+      port: 5432
+      # user: ${POSTGRES_USER}
+      user: postgres
+      # password: ${POSTGRES_PASSWORD}
+      password: "sruthi"
+      database: backstage_plugin_jira-project
   cors:
     origin: http://localhost:3000
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
@@ -298,4 +309,4 @@ auth:
     guest: {}
 
 permission:
-  enabled: true
+enabled: true
