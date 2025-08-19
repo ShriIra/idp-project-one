@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
+// IssueService.ts
+
 // import { Knex } from 'knex';
 
 // export class IssueService {
-//   constructor(private readonly db: Knex) {}
+//   constructor(private readonly db: Knex, private readonly logger: any) {}
 
 //   async createIssue(issue: {
 //     title: string;
@@ -27,61 +29,13 @@
 //     priority?: string;
 //     parentId?: number;
 //     team?: string;
-//     dueDate?: string;
-//     startDate?: string;
-//     reporter: string;
-//     attachmentUrl?: string;
-//   }) {
-//     const mappedIssue = {
-//       title: issue.title,
-//       description: issue.description,
-//       assignee: issue.assignee,
-//       type: issue.type,
-//       priority: issue.priority,
-//       parentId: issue.parentId,
-//       team: issue.team,
-//       due_date: issue.dueDate,     // match DB column
-//       start_date: issue.startDate, // match DB column
-//       reporter: issue.reporter,
-//       attachmentUrl: issue.attachmentUrl,
-//     };
-
-//     const [createdIssue] = await this.db('issues').insert(mappedIssue).returning('*');
-//     return createdIssue;
-//   }
-
-//   async getAllIssues() {
-//     return await this.db('issues').select('*');
-//   }
-
-//   async getIssueById(id: string) {
-//     return await this.db('issues').where({ id }).first();
-//   }
-
-//   async deleteIssue(id: string) {
-//     return await this.db('issues').where({ id }).delete();
-//   }
-// }
-
-// import { Knex } from 'knex';
-
-// export class IssueService {
-//   constructor(private readonly db: Knex) {}
-
-//   async createIssue(issue: {
-//     title: string;
-//     description?: string;
-//     assignee?: string;
-//     type: string;
-//     priority?: string;
-//     parentId?: number;
-//     team?: string;
-//     dueDate?: string;
+//     due_date?: string;
 //     startDate?: string;
 //     reporter: string;
 //     status?: string;
 //     attachmentUrl?: string;
 //   }) {
+//     this.logger.info(`Creating issue: ${issue.title}`);
 //     const mappedIssue = {
 //       title: issue.title,
 //       description: issue.description,
@@ -90,7 +44,7 @@
 //       priority: issue.priority,
 //       parentId: issue.parentId,
 //       team: issue.team,
-//       due_date: issue.dueDate,
+//       due_date: issue.due_date,
 //       start_date: issue.startDate,
 //       reporter: issue.reporter,
 //       status: issue.status,
@@ -100,18 +54,23 @@
 //     const [createdIssue] = await this.db('issues')
 //       .insert(mappedIssue)
 //       .returning('*');
+
+//     this.logger.debug(`Created issue:`, createdIssue);
 //     return createdIssue;
 //   }
 
 //   async getAllIssues() {
+//     this.logger.info(`Fetching all issues`);
 //     return await this.db('issues').select('*');
 //   }
 
 //   async getIssueById(id: string) {
+//     this.logger.info(`Fetching issue with id: ${id}`);
 //     return await this.db('issues').where({ id }).first();
 //   }
 
 //   async updateIssueStatus(id: string, status: string) {
+//     this.logger.info(`Updating status of issue ${id} to ${status}`);
 //     return await this.db('issues')
 //       .where({ id })
 //       .update({ status, updated_at: this.db.fn.now() });
@@ -127,28 +86,34 @@
 //       priority?: string;
 //       parentId?: number;
 //       team?: string;
-//       dueDate?: string;
-//       startDate?: string;
+//       due_date?: string;
+//       start_date?: string;
 //       reporter?: string;
 //       status?: string;
 //       attachmentUrl?: string;
-//     }>
+//     }>,
 //   ) {
+//     this.logger.info(`Updating issue ${id}`);
 //     const mappedFields: any = { ...updatedFields };
 
-//     if (updatedFields.dueDate) mappedFields.due_date = updatedFields.dueDate;
-//     if (updatedFields.startDate) mappedFields.start_date = updatedFields.startDate;
+//     if (updatedFields.due_date) mappedFields.due_date = updatedFields.due_date;
+//     if (updatedFields.start_date)
+//       mappedFields.start_date = updatedFields.start_date;
 
 //     delete mappedFields.dueDate;
 //     delete mappedFields.startDate;
 
-//     return await this.db('issues')
+//     const updated = await this.db('issues')
 //       .where({ id })
 //       .update({ ...mappedFields, updated_at: this.db.fn.now() })
 //       .returning('*');
+
+//     this.logger.debug(`Updated issue ${id}:`, updated);
+//     return updated;
 //   }
 
 //   async deleteIssue(id: string) {
+//     this.logger.info(`Deleting issue ${id}`);
 //     return await this.db('issues').where({ id }).delete();
 //   }
 // }
@@ -167,7 +132,7 @@ export class IssueService {
     parentId?: number;
     team?: string;
     due_date?: string;
-    startDate?: string;
+    start_date?: string;
     reporter: string;
     status?: string;
     attachmentUrl?: string;
@@ -182,7 +147,7 @@ export class IssueService {
       parentId: issue.parentId,
       team: issue.team,
       due_date: issue.due_date,
-      start_date: issue.startDate,
+      start_date: issue.start_date,
       reporter: issue.reporter,
       status: issue.status,
       attachmentUrl: issue.attachmentUrl,
@@ -208,9 +173,12 @@ export class IssueService {
 
   async updateIssueStatus(id: string, status: string) {
     this.logger.info(`Updating status of issue ${id} to ${status}`);
-    return await this.db('issues')
+    const [updated] = await this.db('issues')
       .where({ id })
-      .update({ status, updated_at: this.db.fn.now() });
+      .update({ status, updated_at: this.db.fn.now() })
+      .returning('*');
+
+    return updated;
   }
 
   async updateIssue(
@@ -233,14 +201,7 @@ export class IssueService {
     this.logger.info(`Updating issue ${id}`);
     const mappedFields: any = { ...updatedFields };
 
-    if (updatedFields.due_date) mappedFields.due_date = updatedFields.due_date;
-    if (updatedFields.start_date)
-      mappedFields.start_date = updatedFields.start_date;
-
-    delete mappedFields.dueDate;
-    delete mappedFields.startDate;
-
-    const updated = await this.db('issues')
+    const [updated] = await this.db('issues')
       .where({ id })
       .update({ ...mappedFields, updated_at: this.db.fn.now() })
       .returning('*');
@@ -252,5 +213,14 @@ export class IssueService {
   async deleteIssue(id: string) {
     this.logger.info(`Deleting issue ${id}`);
     return await this.db('issues').where({ id }).delete();
+  }
+
+  // method for calendar
+  async getIssuesByDateRange(start: string, end: string) {
+    this.logger.info(`Fetching issues between ${start} and ${end}`);
+    return await this.db('issues')
+      .whereBetween('start_date', [start, end])
+      .orWhereBetween('due_date', [start, end])
+      .select('*');
   }
 }

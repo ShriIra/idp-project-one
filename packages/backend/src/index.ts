@@ -65,4 +65,5 @@ backend.add(import('./instanceMetadata'));
 backend.add(import('@backstage/plugin-events-backend-module-google-pubsub'));
 backend.add(import('@backstage/plugin-mcp-actions-backend'));
 backend.add(import('@backstage/plugin-jira-project-backend'));
+backend.add(import('@backstage/plugin-calendar-backend'));
 backend.start();

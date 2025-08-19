@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
+// 20250804120000_create_issues_table.ts
+
 // import { Knex } from 'knex';
 
 // export async function up(knex: Knex): Promise<void> {
-//   return knex.schema.createTable('issues', (table) => {
+//   return knex.schema.createTable('issues', table => {
 //     table.increments('id').primary();
 //     table.string('title').notNullable();
 //     table.text('description');
@@ -25,7 +27,7 @@
 //     table.string('assignee');
 //     table.string('reporter').notNullable();
 //     table.string('team');
-//     table.integer('parentId').nullable(); // integer ID for parent
+//     table.integer('parentId').nullable();
 //     table.date('start_date');
 //     table.date('due_date');
 //     table.timestamps(true, true);
@@ -34,7 +36,7 @@
 //     table.string('priority').nullable();
 //     table.string('status').nullable();
 //     table.string('labels').nullable();
-//     table.string('attachmentUrl').nullable(); // Added to match service
+//     table.string('attachmentUrl').nullable();
 //   });
 // }
 

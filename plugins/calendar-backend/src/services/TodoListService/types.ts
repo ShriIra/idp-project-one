@@ -13,30 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {
+  BackstageCredentials,
+  BackstageUserPrincipal,
+} from '@backstage/backend-plugin-api';
 
-// knexfile.ts
+export interface TodoItem {
+  title: string;
+  id: string;
+  createdBy: string;
+  createdAt: string;
+}
 
-import type { Knex } from 'knex';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const config: { [key: string]: Knex.Config } = {
-  development: {
-    client: 'pg',
-    connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: 'sruthi',
-      database: 'backstage_plugin_jira-project', // underscore version
+export interface TodoListService {
+  createTodo(
+    input: {
+      title: string;
+      entityRef?: string;
     },
-    migrations: {
-      directory: path.resolve(__dirname, 'src/database/migrations'),
-      extension: 'ts',
+    options: {
+      credentials: BackstageCredentials<BackstageUserPrincipal>;
     },
-  },
-};
+  ): Promise<TodoItem>;
 
-export default config;
+  listTodos(): Promise<{ items: TodoItem[] }>;
+
+  getTodo(request: { id: string }): Promise<TodoItem>;
+}

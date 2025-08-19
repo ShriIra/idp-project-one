@@ -13,30 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {
+  createPlugin,
+  createRoutableExtension,
+} from '@backstage/core-plugin-api';
 
-// knexfile.ts
+import { rootRouteRef } from './routes';
 
-import type { Knex } from 'knex';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const config: { [key: string]: Knex.Config } = {
-  development: {
-    client: 'pg',
-    connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: 'sruthi',
-      database: 'backstage_plugin_jira-project', // underscore version
-    },
-    migrations: {
-      directory: path.resolve(__dirname, 'src/database/migrations'),
-      extension: 'ts',
-    },
+export const calendarPlugin = createPlugin({
+  id: 'calendar',
+  routes: {
+    root: rootRouteRef,
   },
-};
+});
 
-export default config;
+export const CalendarPage = calendarPlugin.provide(
+  createRoutableExtension({
+    name: 'CalendarPage',
+    component: () =>
+      import('./components/ExampleComponent').then(m => m.ExampleComponent),
+    mountPoint: rootRouteRef,
+  }),
+);
