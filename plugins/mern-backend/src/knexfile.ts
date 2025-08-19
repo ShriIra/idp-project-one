@@ -13,50 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// knexfile.ts
-// import type { Knex } from 'knex';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-
-// // Define __dirname manually (ES module workaround)
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// const config: { [key: string]: Knex.Config } = {
-//   development: {
-//     client: 'pg',
-//     connection: {
-//       host: 'localhost',
-//       user: 'postgres',
-//       password: 'sruthi',
-//       database: 'backstage_plugin_jira-project',
-//     },
-//     migrations: {
-//       directory: path.resolve(__dirname, 'plugins/jira-project-backend/src/database/migrations'),
-//       extension: 'ts',
-//     },
-//   },
-// };
-
-// export default config;
-
 import type { Knex } from 'knex';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-restricted-syntax
 const __dirname = path.dirname(__filename);
 
 const config: { [key: string]: Knex.Config } = {
   development: {
     client: 'pg',
     connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: '123',
-      database: 'backstage_plugin_jira-project', // underscore version
+      host: '127.0.0.1',      // Your PostgreSQL host
+      port: 5432,             // Default PostgreSQL port
+      user: 'postgres',       // Your PostgreSQL username
+      password: '123',        // Your PostgreSQL password
+      database: 'backstage_plugin_mern', // Same DB for issues + projects
     },
     migrations: {
+      // eslint-disable-next-line no-restricted-syntax
       directory: path.resolve(__dirname, 'src/database/migrations'),
       extension: 'ts',
     },

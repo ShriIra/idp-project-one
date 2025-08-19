@@ -49,6 +49,7 @@
     "@backstage/plugin-jira-project-backend": "workspace:^",
     "@backstage/plugin-kubernetes-backend": "workspace:^",
     "@backstage/plugin-mcp-actions-backend": "workspace:^",
+    "@backstage/plugin-mern-backend": "workspace:^",
     "@backstage/plugin-notifications-backend": "workspace:^",
     "@backstage/plugin-permission-backend": "workspace:^",
     "@backstage/plugin-permission-backend-module-allow-all-policy": "workspace:^",
