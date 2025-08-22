@@ -273,5 +273,16 @@ export async function createRouter(
     }
   });
 
+  // Get summary view for dashboard cards
+  router.get('/issues/summary', async (_req, res) => {
+    try {
+      const summary = await issueService.getIssueSummary();
+      res.json(summary);
+    } catch (error) {
+      logger.error(`Error fetching issue summary: ${error}`);
+      res.status(500).json({ error: 'Failed to fetch issue summary' });
+    }
+  });
+
   return router;
 }

@@ -30,7 +30,7 @@
 //     parentId?: number;
 //     team?: string;
 //     due_date?: string;
-//     startDate?: string;
+//     start_date?: string;
 //     reporter: string;
 //     status?: string;
 //     attachmentUrl?: string;
@@ -45,7 +45,7 @@
 //       parentId: issue.parentId,
 //       team: issue.team,
 //       due_date: issue.due_date,
-//       start_date: issue.startDate,
+//       start_date: issue.start_date,
 //       reporter: issue.reporter,
 //       status: issue.status,
 //       attachmentUrl: issue.attachmentUrl,
@@ -71,9 +71,12 @@
 
 //   async updateIssueStatus(id: string, status: string) {
 //     this.logger.info(`Updating status of issue ${id} to ${status}`);
-//     return await this.db('issues')
+//     const [updated] = await this.db('issues')
 //       .where({ id })
-//       .update({ status, updated_at: this.db.fn.now() });
+//       .update({ status, updated_at: this.db.fn.now() })
+//       .returning('*');
+
+//     return updated;
 //   }
 
 //   async updateIssue(
@@ -96,14 +99,7 @@
 //     this.logger.info(`Updating issue ${id}`);
 //     const mappedFields: any = { ...updatedFields };
 
-//     if (updatedFields.due_date) mappedFields.due_date = updatedFields.due_date;
-//     if (updatedFields.start_date)
-//       mappedFields.start_date = updatedFields.start_date;
-
-//     delete mappedFields.dueDate;
-//     delete mappedFields.startDate;
-
-//     const updated = await this.db('issues')
+//     const [updated] = await this.db('issues')
 //       .where({ id })
 //       .update({ ...mappedFields, updated_at: this.db.fn.now() })
 //       .returning('*');
@@ -115,6 +111,15 @@
 //   async deleteIssue(id: string) {
 //     this.logger.info(`Deleting issue ${id}`);
 //     return await this.db('issues').where({ id }).delete();
+//   }
+
+//   // method for calendar
+//   async getIssuesByDateRange(start: string, end: string) {
+//     this.logger.info(`Fetching issues between ${start} and ${end}`);
+//     return await this.db('issues')
+//       .whereBetween('start_date', [start, end])
+//       .orWhereBetween('due_date', [start, end])
+//       .select('*');
 //   }
 // }
 
@@ -131,8 +136,8 @@ export class IssueService {
     priority?: string;
     parentId?: number;
     team?: string;
-    due_date?: string;
-    start_date?: string;
+    due_date?: string; // now supports date + time
+    start_date?: string; // now supports date + time
     reporter: string;
     status?: string;
     attachmentUrl?: string;
@@ -146,8 +151,8 @@ export class IssueService {
       priority: issue.priority,
       parentId: issue.parentId,
       team: issue.team,
-      due_date: issue.due_date,
-      start_date: issue.start_date,
+      due_date: issue.due_date, // should be ISO string with datetime
+      start_date: issue.start_date, // should be ISO string with datetime
       reporter: issue.reporter,
       status: issue.status,
       attachmentUrl: issue.attachmentUrl,
@@ -191,8 +196,8 @@ export class IssueService {
       priority?: string;
       parentId?: number;
       team?: string;
-      due_date?: string;
-      start_date?: string;
+      due_date?: string; // datetime
+      start_date?: string; // datetime
       reporter?: string;
       status?: string;
       attachmentUrl?: string;
@@ -222,5 +227,32 @@ export class IssueService {
       .whereBetween('start_date', [start, end])
       .orWhereBetween('due_date', [start, end])
       .select('*');
+  }
+
+  // Summary data for dashboard cards
+  async getIssueSummary() {
+    const totalIssues = await this.db('issues').count('id as count').first();
+
+    const openIssues = await this.db('issues')
+      .whereNot('status', 'DONE')
+      .count('id as count')
+      .first();
+
+    const closedIssues = await this.db('issues')
+      .where('status', 'DONE')
+      .count('id as count')
+      .first();
+
+    const highPriority = await this.db('issues')
+      .where('priority', 'HIGH')
+      .count('id as count')
+      .first();
+
+    return {
+      total: totalIssues?.count ?? 0,
+      open: openIssues?.count ?? 0,
+      closed: closedIssues?.count ?? 0,
+      highPriority: highPriority?.count ?? 0,
+    };
   }
 }
