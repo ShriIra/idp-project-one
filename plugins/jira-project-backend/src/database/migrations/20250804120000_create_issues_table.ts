@@ -44,30 +44,68 @@
 //   return knex.schema.dropTableIfExists('issues');
 // }
 
+// *****************************************************************************************************************************
+// 20250804120000_create_issues_table.ts
+
 import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable('issues', table => {
+  await knex.schema.createTable('issues', table => {
     table.increments('id').primary();
     table.string('title').notNullable();
     table.text('description');
+    table.jsonb('assignee'); // changed
     table.string('type').notNullable();
-    table.string('assignee');
-    table.string('reporter').notNullable();
-    table.string('team');
-    table.integer('parentId').nullable();
-    table.date('start_date');
-    table.date('due_date');
-    table.timestamps(true, true);
-
-    // Optional fields
-    table.string('priority').nullable();
-    table.string('status').nullable();
-    table.string('labels').nullable();
-    table.string('attachmentUrl').nullable();
+    table.string('priority');
+    table
+      .integer('parentId')
+      .references('id')
+      .inTable('issues')
+      .onDelete('SET NULL');
+    table.jsonb('team'); // changed
+    table.timestamp('start_date', { useTz: true });
+    table.timestamp('due_date', { useTz: true });
+    table.jsonb('reporter').notNullable(); // changed
+    table.string('status');
+    table.string('attachmentUrl');
+    table.timestamp('created_at').defaultTo(knex.fn.now());
+    table.timestamp('updated_at').defaultTo(knex.fn.now());
   });
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.dropTableIfExists('issues');
+  await knex.schema.dropTableIfExists('issues');
 }
+
+// **************************************************************************************************************************************
+
+// import { Knex } from 'knex';
+
+// export async function up(knex: Knex): Promise<void> {
+//   return knex.schema.createTable('issues', table => {
+//     table.increments('id').primary();
+//     table.string('title').notNullable();
+//     table.text('description');
+//     table.string('type').notNullable();
+//     table.string('assignee');
+//     table.string('reporter').notNullable();
+//     table.string('team');
+//     table.integer('parentId').nullable();
+
+//     // ✅ Corrected lines to allow for null values
+//     table.date('start_date').nullable();
+//     table.date('due_date').nullable();
+
+//     table.timestamps(true, true);
+
+//     // Optional fields
+//     table.string('priority').nullable();
+//     table.string('status').nullable();
+//     table.string('labels').nullable();
+//     table.string('attachmentUrl').nullable();
+//   });
+// }
+
+// export async function down(knex: Knex): Promise<void> {
+//   return knex.schema.dropTableIfExists('issues');
+// }

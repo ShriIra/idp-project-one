@@ -29,7 +29,7 @@ const config: { [key: string]: Knex.Config } = {
     connection: {
       host: 'localhost',
       user: 'postgres',
-      password: 'sruthi',
+      password: '123',
       database: 'backstage_plugin_jira-project', // underscore version
     },
     migrations: {

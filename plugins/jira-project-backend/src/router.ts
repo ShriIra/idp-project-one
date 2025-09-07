@@ -128,6 +128,165 @@
 //   return router;
 // }
 
+//   *********************************************     ROUTER        *********************************************************************************
+
+// import express from 'express';
+// import { LoggerService } from '@backstage/backend-plugin-api';
+// import { PluginDatabaseManager } from '@backstage/backend-common';
+// import { IssueService } from './services/IssueService';
+
+// interface RouterOptions {
+//   logger: LoggerService;
+//   database: PluginDatabaseManager;
+// }
+
+// export async function createRouter(
+//   options: RouterOptions,
+// ): Promise<express.Router> {
+//   const { logger, database } = options;
+
+//   const db = await database.getClient();
+//   const issueService = new IssueService(db, logger);
+
+//   const router = express.Router();
+//   router.use(express.json());
+
+//   // Create issue
+//   router.post('/issues', async (req, res) => {
+
+//     try {
+//       if (
+//         !req.body.title ||
+//         !req.body.type ||
+//         !req.body.reporter ||
+//         !req.body.status
+//       ) {
+//         return res
+//           .status(400)
+//           .json({ error: 'title, type, reporter, and status are required' });
+//       }
+
+//       const issue = await issueService.createIssue(req.body);
+//       return res.status(201).json(issue);
+//     } catch (error) {
+//       logger.error(`Error creating issue: ${error}`);
+//       return res.status(500).json({ error: 'Failed to create issue' });
+//     }
+//   });
+
+//   // Get all issues
+//   router.get('/issues', async (_req, res) => {
+//     try {
+//       const issues = await issueService.getAllIssues();
+//       res.json(issues);
+//     } catch (error) {
+//       logger.error(`Error fetching issues: ${error}`);
+//       res.status(500).json({ error: 'Failed to fetch issues' });
+//     }
+//   });
+
+//   // Get issues by date range (for calendar view)
+//   // eslint-disable-next-line consistent-return
+//   router.get('/issues/calendar', async (req, res) => {
+//     try {
+//       const { start, end } = req.query;
+//       if (!start || !end) {
+//         return res
+//           .status(400)
+//           .json({ error: 'start and end query parameters are required' });
+//       }
+
+//       const issues = await issueService.getIssuesByDateRange(
+//         start as string,
+//         end as string,
+//       );
+
+//       res.json(issues);
+//     } catch (error) {
+//       logger.error(`Error fetching issues for calendar: ${error}`);
+//       res.status(500).json({ error: 'Failed to fetch calendar issues' });
+//     }
+//   });
+
+//    // ✅ Timeline issues
+//   router.get('/issues/timeline', async (_req, res) => {
+//     try {
+//       const issues = await issueService.getTimelineIssues();
+//       res.json(issues);
+//     } catch (error) {
+//       logger.error(`Error fetching timeline issues: ${error}`);
+//       res.status(500).json({ error: 'Failed to fetch timeline issues' });
+//     }
+//   });
+
+//   // Get issue by ID
+//   router.get('/issues/:id', async (req, res) => {
+//     try {
+//       const issue = await issueService.getIssueById(req.params.id);
+//       if (issue) {
+//         res.json(issue);
+//       } else {
+//         res.status(404).json({ error: 'Issue not found' });
+//       }
+//     } catch (error) {
+//       logger.error(`Error fetching issue: ${error}`);
+//       res.status(500).json({ error: 'Failed to fetch issue' });
+//     }
+//   });
+
+//   // Update only status
+//   router.patch('/issues/:id/status', async (req, res) => {
+//     try {
+//       const { status } = req.body;
+//       if (!status) {
+//         return res.status(400).json({ error: 'Status is required' });
+//       }
+
+//       const updated = await issueService.updateIssueStatus(
+//         req.params.id,
+//         status,
+//       );
+
+//       if (!updated) {
+//         return res.status(404).json({ error: 'Issue not found' });
+//       }
+
+//       return res.status(200).json(updated);
+//     } catch (error) {
+//       logger.error(`Error updating issue status: ${error}`);
+//       return res.status(500).json({ error: 'Failed to update status' });
+//     }
+//   });
+
+//   // Update issue (all fields)
+//   router.put('/issues/:id', async (req, res) => {
+//     try {
+//       const updated = await issueService.updateIssue(req.params.id, req.body);
+//       if (!updated) {
+//         return res.status(404).json({ error: 'Issue not found' });
+//       }
+//       return res.json(updated);
+//     } catch (error) {
+//       logger.error(`Error updating issue: ${error}`);
+//       return res.status(500).json({ error: 'Failed to update issue' });
+//     }
+//   });
+
+//   // Delete issue
+//   // eslint-disable-next-line consistent-return
+//   router.delete('/issues/:id', async (req, res) => {
+//     try {
+//       const deleted = await issueService.deleteIssue(req.params.id);
+//       if (!deleted) {
+//         return res.status(404).json({ error: 'Issue not found' });
+//       }
+//       res.status(204).send();
+//     } catch (error) {
+//       logger.error(`Error deleting issue: ${error}`);
+//       res.status(500).json({ error: 'Failed to delete issue' });
+//     }
+//   });
+
 import express from 'express';
 import { LoggerService } from '@backstage/backend-plugin-api';
 import { PluginDatabaseManager } from '@backstage/backend-common';
@@ -270,6 +429,39 @@ export async function createRouter(
     } catch (error) {
       logger.error(`Error fetching issues for calendar: ${error}`);
       res.status(500).json({ error: 'Failed to fetch calendar issues' });
+    }
+  });
+
+  // ✅ Timeline issues
+  router.get('/issues/timeline', async (_req, res) => {
+    try {
+      const issues = await issueService.getTimelineIssues();
+      res.json(issues);
+    } catch (error: any) {
+      logger.error(`Error fetching timeline issues: ${error}`);
+      res.status(500).json({ error: 'Failed to fetch timeline issues' });
+    }
+  });
+
+  // Get summary view for dashboard cards
+  router.get('/issues-summary', async (_req, res) => {
+    try {
+      const summary = await issueService.getIssueSummary();
+      res.json(summary);
+    } catch (error) {
+      logger.error(`Error fetching issue summary: ${error}`);
+      res.status(500).json({ error: 'Failed to fetch issue summary' });
+    }
+  });
+
+  // Get recently used users (assignee, reporter, team)
+  router.get('/recent-users', async (_req, res) => {
+    try {
+      const users = await issueService.getRecentUsers();
+      res.json(users);
+    } catch (error) {
+      logger.error(`Error fetching recent users: ${error}`);
+      res.status(500).json({ error: 'Failed to fetch recent users' });
     }
   });
 
