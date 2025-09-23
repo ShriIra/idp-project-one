@@ -87,6 +87,7 @@ import { CustomizableHomePage } from './components/home/CustomizableHomePage';
 import { HomePage } from './components/home/HomePage';
 import { JiraProjectPage } from '@backstage/plugin-jira-project';
 import { CalendarPage } from '@backstage/plugin-calendar';
+import { FinalProjectPage } from '@backstage/plugin-final-project';
 
 const app = createApp({
   apis,
@@ -236,6 +237,7 @@ const routes = (
     <Route path="/notifications" element={<NotificationsPage />} />
     <Route path="/jira-project" element={<JiraProjectPage />} />
     <Route path="/calendar" element={<CalendarPage />} />
+    <Route path="/final-project" element={<FinalProjectPage />} />
   </FlatRoutes>
 );
 

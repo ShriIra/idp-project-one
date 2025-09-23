@@ -6525,6 +6525,68 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@backstage/plugin-final-project-backend@workspace:^, @backstage/plugin-final-project-backend@workspace:plugins/final-project-backend":
+  version: 0.0.0-use.local
+  resolution: "@backstage/plugin-final-project-backend@workspace:plugins/final-project-backend"
+  dependencies:
+    "@backstage/backend-common": "npm:^0.25.0"
+    "@backstage/backend-defaults": "workspace:^"
+    "@backstage/backend-plugin-api": "workspace:^"
+    "@backstage/backend-test-utils": "workspace:^"
+    "@backstage/catalog-client": "workspace:^"
+    "@backstage/cli": "workspace:^"
+    "@backstage/errors": "workspace:^"
+    "@backstage/plugin-catalog-node": "workspace:^"
+    "@types/express": "npm:^4.17.6"
+    "@types/node": "npm:^24.3.1"
+    "@types/pg": "npm:^8.15.4"
+    "@types/supertest": "npm:^2.0.8"
+    express: "npm:^4.17.1"
+    express-promise-router: "npm:^4.1.0"
+    knex: "npm:^3.1.0"
+    pg: "npm:^8.16.3"
+    supertest: "npm:^6.2.4"
+    ts-node: "npm:^10.9.2"
+    typescript: "npm:^5.9.2"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
+"@backstage/plugin-final-project@workspace:^, @backstage/plugin-final-project@workspace:plugins/final-project":
+  version: 0.0.0-use.local
+  resolution: "@backstage/plugin-final-project@workspace:plugins/final-project"
+  dependencies:
+    "@backstage/cli": "workspace:^"
+    "@backstage/core-app-api": "workspace:^"
+    "@backstage/core-components": "workspace:^"
+    "@backstage/core-plugin-api": "workspace:^"
+    "@backstage/dev-utils": "workspace:^"
+    "@backstage/test-utils": "workspace:^"
+    "@backstage/theme": "workspace:^"
+    "@fullcalendar/core": "npm:^6.1.19"
+    "@fullcalendar/daygrid": "npm:^6.1.19"
+    "@fullcalendar/interaction": "npm:^6.1.19"
+    "@fullcalendar/react": "npm:^6.1.19"
+    "@fullcalendar/resource-timeline": "npm:^6.1.19"
+    "@fullcalendar/timegrid": "npm:^6.1.19"
+    "@material-ui/core": "npm:^4.9.13"
+    "@material-ui/icons": "npm:^4.9.1"
+    "@material-ui/lab": "npm:^4.0.0-alpha.61"
+    "@testing-library/jest-dom": "npm:^6.0.0"
+    "@testing-library/react": "npm:^14.0.0"
+    "@testing-library/user-event": "npm:^14.0.0"
+    "@types/react-beautiful-dnd": "npm:^13"
+    date-fns: "npm:^4.1.0"
+    msw: "npm:^1.0.0"
+    react: "npm:^16.13.1 || ^17.0.0 || ^18.0.0"
+    react-beautiful-dnd: "npm:^13.1.1"
+    react-use: "npm:^17.2.4"
+    recharts: "npm:^3.2.0"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+  languageName: unknown
+  linkType: soft
+
 "@backstage/plugin-gateway-backend@workspace:plugins/gateway-backend":
   version: 0.0.0-use.local
   resolution: "@backstage/plugin-gateway-backend@workspace:plugins/gateway-backend"
@@ -9997,7 +10059,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fullcalendar/daygrid@npm:^6.1.19":
+"@fullcalendar/daygrid@npm:^6.1.19, @fullcalendar/daygrid@npm:~6.1.19":
   version: 6.1.19
   resolution: "@fullcalendar/daygrid@npm:6.1.19"
   peerDependencies:
@@ -10015,6 +10077,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fullcalendar/premium-common@npm:~6.1.19":
+  version: 6.1.19
+  resolution: "@fullcalendar/premium-common@npm:6.1.19"
+  peerDependencies:
+    "@fullcalendar/core": ~6.1.19
+  checksum: 10/1287405980e0d4ba366189ba71ae374830f6cd5f88454b1ca9e9d56710a526c75d08d3e9a6672d2ddd0c48bf36fa1c732ba1d50b5fdf8ab22e54a9ff5b24cd7c
+  languageName: node
+  linkType: hard
+
 "@fullcalendar/react@npm:^6.1.19":
   version: 6.1.19
   resolution: "@fullcalendar/react@npm:6.1.19"
@@ -10023,6 +10094,65 @@ __metadata:
     react: ^16.7.0 || ^17 || ^18 || ^19
     react-dom: ^16.7.0 || ^17 || ^18 || ^19
   checksum: 10/3a1b1dd5d8da032591a170c3488ee4c21d32ca7bdbfd718b1c668edc49f3feb664e7e278350655b2aa2519f2fdd9b6e694e3fbed265ba17d40ef4f3ba517ed81
+  languageName: node
+  linkType: hard
+
+"@fullcalendar/resource-timeline@npm:^6.1.19":
+  version: 6.1.19
+  resolution: "@fullcalendar/resource-timeline@npm:6.1.19"
+  dependencies:
+    "@fullcalendar/premium-common": "npm:~6.1.19"
+    "@fullcalendar/scrollgrid": "npm:~6.1.19"
+    "@fullcalendar/timeline": "npm:~6.1.19"
+  peerDependencies:
+    "@fullcalendar/core": ~6.1.19
+    "@fullcalendar/resource": ~6.1.19
+  checksum: 10/c9324a8a024a33c17858d843892d08f5ef5a856c7b96f0202ac3ee6c28020e69a1aa41ca8f0d26a81b3bee1ecfc20ceb792fb669d9237f0547c757f1a0158012
+  languageName: node
+  linkType: hard
+
+"@fullcalendar/resource@npm:6.1.19":
+  version: 6.1.19
+  resolution: "@fullcalendar/resource@npm:6.1.19"
+  dependencies:
+    "@fullcalendar/premium-common": "npm:~6.1.19"
+  peerDependencies:
+    "@fullcalendar/core": ~6.1.19
+  checksum: 10/a840b46d0463641807aa218d5d88fc3e44ba27749c10f2e6be3294b61db1842133107710aba0d5270c20f7e67184642fdb235cc1319b126f36b693896da13f11
+  languageName: node
+  linkType: hard
+
+"@fullcalendar/scrollgrid@npm:~6.1.19":
+  version: 6.1.19
+  resolution: "@fullcalendar/scrollgrid@npm:6.1.19"
+  dependencies:
+    "@fullcalendar/premium-common": "npm:~6.1.19"
+  peerDependencies:
+    "@fullcalendar/core": ~6.1.19
+  checksum: 10/d0475e86228c6a8cabd12b737ef3a316ac02703d5f12d34a319ad01f0c134f83f6bada1f400c5f412fc446232e94c367e266a54408eef028801ad920538ab2b2
+  languageName: node
+  linkType: hard
+
+"@fullcalendar/timegrid@npm:^6.1.19":
+  version: 6.1.19
+  resolution: "@fullcalendar/timegrid@npm:6.1.19"
+  dependencies:
+    "@fullcalendar/daygrid": "npm:~6.1.19"
+  peerDependencies:
+    "@fullcalendar/core": ~6.1.19
+  checksum: 10/8d8e1b7253528c592d1ce7ffa4c76f61480c725ffee55b9b2ec3bba156bf386250f27e3b6fff66073005e2c413efecc22fa97f1ec0bc762e4ae880633e641cb2
+  languageName: node
+  linkType: hard
+
+"@fullcalendar/timeline@npm:~6.1.19":
+  version: 6.1.19
+  resolution: "@fullcalendar/timeline@npm:6.1.19"
+  dependencies:
+    "@fullcalendar/premium-common": "npm:~6.1.19"
+    "@fullcalendar/scrollgrid": "npm:~6.1.19"
+  peerDependencies:
+    "@fullcalendar/core": ~6.1.19
+  checksum: 10/215d6c77e6a50afb09a9ac3908d3672b8fd1e9b66c2ff4178ccc183f74f8d0d8feb7d42ab932d9cf523161db1bda9fb4fc4cf9dda01ae7b49aee7926e72e2d0f
   languageName: node
   linkType: hard
 
@@ -22219,12 +22349,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=12, @types/node@npm:>=12.0.0, @types/node@npm:>=13.7.0, @types/node@npm:>=18.0.0, @types/node@npm:^22.0.0":
-  version: 22.13.10
-  resolution: "@types/node@npm:22.13.10"
+"@types/node@npm:*, @types/node@npm:>=12, @types/node@npm:>=12.0.0, @types/node@npm:>=13.7.0, @types/node@npm:>=18.0.0, @types/node@npm:^24.3.1":
+  version: 24.3.1
+  resolution: "@types/node@npm:24.3.1"
   dependencies:
-    undici-types: "npm:~6.20.0"
-  checksum: 10/57dc6a5e0110ca9edea8d7047082e649fa7fa813f79e4a901653b9174141c622f4336435648baced5b38d9f39843f404fa2d8d7a10981610da26066bc8caab48
+    undici-types: "npm:~7.10.0"
+  checksum: 10/b9a52ed8f2fb1fa764ce988828b8d579761f944f1bb0492adbdeaa676a161086bad1a807b590799681ad93b3d272468b5c5ddccf5678735d487d1b65e481bc07
   languageName: node
   linkType: hard
 
@@ -22271,6 +22401,15 @@ __metadata:
   dependencies:
     undici-types: "npm:~6.19.2"
   checksum: 10/69fd3b177417be77b459e8f1dd4e78c85c686167086920fbf35a9fda301709bbeee6a87ad2591fb1ddd96c65e725ec6bb527a06496626a1c94367d1361048f8d
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^22.0.0":
+  version: 22.13.10
+  resolution: "@types/node@npm:22.13.10"
+  dependencies:
+    undici-types: "npm:~6.20.0"
+  checksum: 10/57dc6a5e0110ca9edea8d7047082e649fa7fa813f79e4a901653b9174141c622f4336435648baced5b38d9f39843f404fa2d8d7a10981610da26066bc8caab48
   languageName: node
   linkType: hard
 
@@ -31380,6 +31519,7 @@ __metadata:
     "@backstage/plugin-catalog-react": "workspace:^"
     "@backstage/plugin-catalog-unprocessed-entities": "workspace:^"
     "@backstage/plugin-devtools": "workspace:^"
+    "@backstage/plugin-final-project": "workspace:^"
     "@backstage/plugin-home": "workspace:^"
     "@backstage/plugin-jira-project": "workspace:^"
     "@backstage/plugin-kubernetes": "workspace:^"
@@ -31447,6 +31587,7 @@ __metadata:
     "@backstage/plugin-devtools-backend": "workspace:^"
     "@backstage/plugin-events-backend": "workspace:^"
     "@backstage/plugin-events-backend-module-google-pubsub": "workspace:^"
+    "@backstage/plugin-final-project-backend": "workspace:^"
     "@backstage/plugin-jira-project-backend": "workspace:^"
     "@backstage/plugin-kubernetes-backend": "workspace:^"
     "@backstage/plugin-mcp-actions-backend": "workspace:^"
@@ -44818,9 +44959,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recharts@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "recharts@npm:3.1.2"
+"recharts@npm:^3.1.2, recharts@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "recharts@npm:3.2.0"
   dependencies:
     "@reduxjs/toolkit": "npm:1.x.x || 2.x.x"
     clsx: "npm:^2.1.1"
@@ -44837,7 +44978,7 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-is: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10/8727e8388a519a1b8fc775f5bf6d82362b18dad245a645f3450a9e22d16e7249ea76f6588cb14520cc5b75ca1b3f87942c72e6bdcdce1b7a7be8db790cf4d5df
+  checksum: 10/a829789fd82a37f0897e679b6ec1ad7968089ba6371e5755e8f24f64c5221835f3a11082d5512241978a910b5ada097611d1394f8b79e3625e2adf66d203ea03
   languageName: node
   linkType: hard
 
@@ -45742,7 +45883,13 @@ __metadata:
     "@fullcalendar/daygrid": "npm:^6.1.19"
     "@fullcalendar/interaction": "npm:^6.1.19"
     "@fullcalendar/react": "npm:^6.1.19"
+    "@fullcalendar/resource": "npm:6.1.19"
+    "@fullcalendar/resource-timeline": "npm:^6.1.19"
+    "@fullcalendar/timegrid": "npm:^6.1.19"
     "@manypkg/get-packages": "npm:^1.1.3"
+    "@material-ui/core": "npm:^4.12.4"
+    "@material-ui/icons": "npm:^4.11.3"
+    "@material-ui/lab": "npm:^4.0.0-alpha.61"
     "@mui/icons-material": "npm:5"
     "@octokit/rest": "npm:^19.0.3"
     "@playwright/test": "npm:^1.32.3"
@@ -45753,6 +45900,7 @@ __metadata:
     "@types/memjs": "npm:^1.3.3"
     "@types/node": "npm:^20.16.0"
     "@types/pg": "npm:^8.15.4"
+    "@types/react-beautiful-dnd": "npm:^13"
     "@types/webpack": "npm:^5.28.0"
     "@useoptic/optic": "npm:^1.0.0"
     array-to-table: "npm:^1.0.1"
@@ -45773,6 +45921,7 @@ __metadata:
     node-gyp: "npm:^10.0.0"
     pg: "npm:^8.16.3"
     prettier: "npm:^2.2.1"
+    react-beautiful-dnd: "npm:^13.1.1"
     recharts: "npm:^3.1.2"
     semver: "npm:^7.5.3"
     shx: "npm:^0.4.0"
@@ -49412,6 +49561,13 @@ __metadata:
   version: 6.20.0
   resolution: "undici-types@npm:6.20.0"
   checksum: 10/583ac7bbf4ff69931d3985f4762cde2690bb607844c16a5e2fbb92ed312fe4fa1b365e953032d469fa28ba8b224e88a595f0b10a449332f83fa77c695e567dbe
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~7.10.0":
+  version: 7.10.0
+  resolution: "undici-types@npm:7.10.0"
+  checksum: 10/1f3fe777937690ab8a7a7bccabc8fdf4b3171f4899b5a384fb5f3d6b56c4b5fec2a51fbf345c9dd002ff6716fd440a37fa8fdb0e13af8eca8889f25445875ba3
   languageName: node
   linkType: hard
 

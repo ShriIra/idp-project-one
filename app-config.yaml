@@ -63,7 +63,7 @@ backend:
       user: postgres
       # password: ${POSTGRES_PASSWORD}
       password: "sruthi"
-      database: backstage_plugin_jira-project
+      database: backstage_plugin_final-project
   cors:
     origin: http://localhost:3000
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
